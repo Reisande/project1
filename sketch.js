@@ -17,7 +17,7 @@ let c = [
     Math.floor(Math.random() * 255)
 ];
 
-let colorDeltas = [-5, -5, -5];
+let colorDeltas = [-1, -1, -1];
 
 let step = 0;
 let xSpeed = 15;
@@ -25,7 +25,7 @@ let ySpeed = 15;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    background(255, 100, 180);
+    background(0, 0, 0);
     balls = [
         new Ball(1, 1, 1, 2, 100),
         new Ball(windowWidth, 1, -2, 1, 100),
@@ -47,15 +47,15 @@ function keyPressed() {
         ySpeed = 0;
         xSpeed = 0;
         createCanvas(windowWidth, windowHeight);
-        background(255, 100, 180);
+        background(0, 0, 0);
 
         while (balls.length > 4) {
             balls.pop();
         }
-
-        for (let ball of balls) {
-
-        }
+    } else if (keyCode === 189) {
+        balls.pop();
+        createCanvas(windowWidth, windowHeight);
+        background(0, 0, 0);
     }
 }
 

@@ -1,25 +1,105 @@
-function setup() {
-	createCanvas(400,400);
+class Ball {
+    constructor(x, y, xDelta, yDelta, diameter) {
+        this.x = x;
+        this.y = y;
+        this.xDelta = xDelta;
+        this.yDelta = yDelta;
+        this.diameter = diameter;
+    }
 }
 
-let x = 0;
-let y = 0;
-let xspeed = 3;
-let yspeed = -3;
+let balls = [];
+
+let diffIndex = 0;
+let c = [
+    Math.floor(Math.random() * 255),
+    Math.floor(Math.random() * 255),
+    Math.floor(Math.random() * 255)
+];
+
+let colorDeltas = [-5, -5, -5];
+
+let step = 0;
+let xSpeed = 15;
+let ySpeed = 15;
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    background(255, 100, 180);
+    balls = [
+        new Ball(1, 1, 1, 2, 100),
+        new Ball(windowWidth, 1, -2, 1, 100),
+        new Ball(1, windowHeight, -2, 1, 100),
+        new Ball(windowWidth, windowHeight, -1, -2, 100)
+    ];
+}
+
+function keyPressed() {
+    if (keyCode === LEFT_ARROW) {
+        xSpeed += 1;
+    } else if (keyCode === RIGHT_ARROW) {
+        xSpeed -= 1;
+    } else if (keyCode === UP_ARROW) {
+        ySpeed += 1;
+    } else if (keyCode === DOWN_ARROW) {
+        ySpeed -= 1;
+    } else if (keyCode === ENTER) {
+        ySpeed = 0;
+        xSpeed = 0;
+        createCanvas(windowWidth, windowHeight);
+        background(255, 100, 180);
+
+        while (balls.length > 4) {
+            balls.pop();
+        }
+
+        for (let ball of balls) {
+
+        }
+    }
+}
 
 function draw() {
-	background(100,100,100);
-	fill(20,30,100);
-	rect(x, y, 100, 100);
+    noStroke();
 
-	if(x + 100 > width || x < 0)  {
-		xspeed *= -1;		
-	}
+    if (mouseIsPressed) {
+        balls.push(new Ball(mouseX, mouseY, 1, 2, 100))
+    }
 
-	if(y - 300 > length || y < 0) {
-		yspeed *= -1;
-	}
+    for (let ball of balls) {
+        if (ball.x <= 0 || ball.x > windowWidth) {
+            ball.xDelta *= -1;
+        }
+        if (ball.y <= 0 || ball.y > windowHeight) {
+            ball.yDelta *= -1;
+        }
 
-	x += xspeed;
-	y += yspeed;
+        ball.x += ball.xDelta;
+        ball.y += ball.yDelta;
+
+        ellipse(
+            ball.x,
+            ball.y,
+            ball.diameter + (sin(step / 100) * xSpeed),
+            ball.diameter + (sin(step / 100) * ySpeed)
+        );
+
+        if (step % 4 == 0) {
+            c[diffIndex] += colorDeltas[diffIndex];
+        }
+
+        step++;
+
+        fill(c[0], c[1], c[2]);
+    }
+
+    if (c[diffIndex] <= 0) {
+        colorDeltas[diffIndex] = 1;
+        c[diffIndex] = 1;
+        diffIndex = Math.floor(Math.random() * 3);
+    } else if (c[diffIndex] >= 255) {
+        colorDeltas[diffIndex] = -1;
+        c[diffIndex] = 254;
+        diffIndex = Math.floor(Math.random() * 3);
+    }
 }

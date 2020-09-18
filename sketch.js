@@ -20,15 +20,14 @@ let c = [
 let colorDeltas = [-1, -1, -1];
 
 let step = 0;
-let xSpeed = 20;
-let ySpeed = 20;
+let xSpeed = 0;
+let ySpeed = 0;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     background(0, 0, 0);
     balls = [
-        new Ball(1, 1, 1, 2, 100),
-        new Ball(windowWidth, 1, -2, 1, 100)
+        new Ball(1, 1, 1, 2, 100)
     ];
 }
 

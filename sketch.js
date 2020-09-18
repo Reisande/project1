@@ -66,7 +66,7 @@ function draw() {
 
     step++;
 
-	for(int i = 0; i < 2; i++) {
+	for(i = 0; i < 2; i++) {
 		for (let ball of balls) {
 			if (ball.x <= 0 || ball.x > windowWidth) {
 				ball.xDelta *= -1;

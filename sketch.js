@@ -20,8 +20,8 @@ let c = [
 let colorDeltas = [-1, -1, -1];
 
 let step = 0;
-let xSpeed = 15;
-let ySpeed = 15;
+let xSpeed = 20;
+let ySpeed = 20;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -64,9 +64,14 @@ function draw() {
         balls.push(new Ball(mouseX, mouseY, 1, 2, 100))
     }
 
-    step++;
 
 	for(i = 0; i < 2; i++) {
+		step++;
+
+		if (step % 4 == 0) {
+			c[diffIndex] += colorDeltas[diffIndex];
+		}
+
 		for (let ball of balls) {
 			if (ball.x <= 0 || ball.x > windowWidth) {
 				ball.xDelta *= -1;
@@ -84,11 +89,6 @@ function draw() {
 				ball.diameter + (sin(step / 100) * xSpeed),
 				ball.diameter + (sin(step / 100) * ySpeed)
 			);
-
-			if (step % 4 == 0) {
-				c[diffIndex] += colorDeltas[diffIndex];
-			}
-
 
 			fill(c[0], c[1], c[2]);
 		}

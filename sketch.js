@@ -66,40 +66,43 @@ function draw() {
         balls.push(new Ball(mouseX, mouseY, 1, 2, 100))
     }
 
-    for (let ball of balls) {
-        if (ball.x <= 0 || ball.x > windowWidth) {
-            ball.xDelta *= -1;
-        }
-        if (ball.y <= 0 || ball.y > windowHeight) {
-            ball.yDelta *= -1;
-        }
-
-        ball.x += ball.xDelta;
-        ball.y += ball.yDelta;
-
-        ellipse(
-            ball.x,
-            ball.y,
-            ball.diameter + (sin(step / 100) * xSpeed),
-            ball.diameter + (sin(step / 100) * ySpeed)
-        );
-
-        if (step % 4 == 0) {
-            c[diffIndex] += colorDeltas[diffIndex];
-        }
-
+    for (let i = 0; i < 5; i++) {
         step++;
 
-        fill(c[0], c[1], c[2]);
-    }
+        for (let ball of balls) {
+            if (ball.x <= 0 || ball.x > windowWidth) {
+                ball.xDelta *= -1;
+            }
+            if (ball.y <= 0 || ball.y > windowHeight) {
+                ball.yDelta *= -1;
+            }
 
-    if (c[diffIndex] <= 0) {
-        colorDeltas[diffIndex] = 1;
-        c[diffIndex] = 1;
-        diffIndex = Math.floor(Math.random() * 3);
-    } else if (c[diffIndex] >= 255) {
-        colorDeltas[diffIndex] = -1;
-        c[diffIndex] = 254;
-        diffIndex = Math.floor(Math.random() * 3);
+            ball.x += ball.xDelta;
+            ball.y += ball.yDelta;
+
+            ellipse(
+                ball.x,
+                ball.y,
+                ball.diameter + (sin(step / 100) * xSpeed),
+                ball.diameter + (sin(step / 100) * ySpeed)
+            );
+
+            if (step % 4 == 0) {
+                c[diffIndex] += colorDeltas[diffIndex];
+            }
+
+
+            fill(c[0], c[1], c[2]);
+        }
+
+        if (c[diffIndex] <= 0) {
+            colorDeltas[diffIndex] = 1;
+            c[diffIndex] = 1;
+            diffIndex = Math.floor(Math.random() * 3);
+        } else if (c[diffIndex] >= 255) {
+            colorDeltas[diffIndex] = -1;
+            c[diffIndex] = 254;
+            diffIndex = Math.floor(Math.random() * 3);
+        }
     }
 }

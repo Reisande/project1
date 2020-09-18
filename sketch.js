@@ -20,7 +20,7 @@ let c = [
 let colorDeltas = [-1, -1, -1];
 
 let step = 0;
-let xSpeed = 0;
+let xSpeed = 15;
 let ySpeed = 0;
 
 function setup() {
